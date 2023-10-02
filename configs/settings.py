@@ -32,6 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
+
+    # my_apps
+    'cars',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +71,7 @@ DATABASES = {
         'NAME': 'mar2023',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost', # owu.linkpc.net
+        'HOST': 'localhost',  # owu.linkpc.net
         'PORT': 3306
     }
 }
@@ -111,3 +114,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+APPEND_SLASH = False
