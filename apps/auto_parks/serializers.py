@@ -11,3 +11,9 @@ class AutoParkSerializer(serializers.ModelSerializer):
         model = AutoParkModel
         fields = ('id', 'name', 'created_at', 'updated_at', 'cars')
         # read_only_fields = ('cars',)
+
+
+class AutoParkWithOutCarsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AutoParkModel
+        fields = ('id', 'name', 'created_at', 'updated_at')

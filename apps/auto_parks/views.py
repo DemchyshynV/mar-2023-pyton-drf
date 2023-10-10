@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 
 from apps.auto_parks.models import AutoParkModel
@@ -12,7 +12,12 @@ class AutoParkListCreateView(ListCreateAPIView):
     serializer_class = AutoParkSerializer
 
 
-class AutoParkAddCarView(GenericAPIView):
+class AutoParkRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    queryset = AutoParkModel.objects.all()
+    serializer_class = AutoParkSerializer
+
+
+class AutoParkListCreateCarView(GenericAPIView):
     queryset = AutoParkModel.objects.all()
 
     def post(self, *args, **kwargs):
@@ -24,3 +29,7 @@ class AutoParkAddCarView(GenericAPIView):
         park_serializer = AutoParkSerializer(auto_park)
         return Response(park_serializer.data, status.HTTP_201_CREATED)
 
+    def get(self, *args, **kwargs):
+        auto_park = self.get_object()
+        serializer = CarSerializer(auto_park.cars, many=True)
+        return Response(serializer.data, status.HTTP_200_OK)
