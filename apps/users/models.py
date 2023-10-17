@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.core import validators as V
 from django.db import models
 
 from apps.users.managers import UserManager
 
+from core.enums.regex_enum import RegEx
 from core.models import BaseModel
 
 
@@ -10,9 +12,16 @@ class ProfileModel(BaseModel):
     class Meta:
         db_table = 'profile'
 
-    name = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
-    age = models.IntegerField()
+    name = models.CharField(max_length=50, validators=[
+        V.RegexValidator(*RegEx.NAME.value)
+    ])
+    surname = models.CharField(max_length=50, validators=[
+        V.RegexValidator(*RegEx.NAME.value)
+    ])
+    age = models.IntegerField(validators=[
+        V.MinValueValidator(16),
+        V.MaxValueValidator(150)
+    ])
 
 
 class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
@@ -21,7 +30,9 @@ class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
         ordering = ['id']
 
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, validators=[
+        V.RegexValidator(*RegEx.PASSWORD.value)
+    ])
     is_superuser = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
