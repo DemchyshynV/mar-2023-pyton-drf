@@ -29,15 +29,19 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = []
 
 # Application definition
+AUTH_USER_MODEL = 'users.UserModel'
 
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
     'django_filters',
+    'rest_framework_simplejwt.token_blacklist',
 
     # my_apps
     'core',
+    'apps.users',
+    'apps.auth',
     'apps.cars',
     'apps.auto_parks',
 ]

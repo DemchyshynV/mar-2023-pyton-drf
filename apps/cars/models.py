@@ -5,6 +5,7 @@ from django.db import models
 
 from apps.auto_parks.models import AutoParkModel
 from apps.cars.choices.body_type_choices import BodyTypeChoices
+from apps.cars.managers import CarManager
 
 from core.enums.regex_enum import RegEx
 from core.models import BaseModel
@@ -20,3 +21,6 @@ class CarModel(BaseModel):
     year = models.IntegerField(validators=[V.MinValueValidator(1990), V.MaxValueValidator(datetime.now().year)])
     body = models.CharField(max_length=9, choices=BodyTypeChoices.choices)
     auto_park = models.ForeignKey(AutoParkModel, on_delete=models.CASCADE, related_name='cars')
+
+    objects = models.Manager()
+    my_objects = CarManager()
