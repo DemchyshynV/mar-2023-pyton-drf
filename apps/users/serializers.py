@@ -11,7 +11,18 @@ UserModel = get_user_model()
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileModel
-        fields = ('id', 'name', 'surname', 'age', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'surname', 'age', 'avatar', 'created_at', 'updated_at')
+
+
+class ProfileAvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileModel
+        fields = ('avatar',)
+        extra_kwargs = {
+            'avatar': {
+                'required': True
+            }
+        }
 
 
 class UserSerializer(serializers.ModelSerializer):

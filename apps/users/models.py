@@ -6,6 +6,7 @@ from apps.users.managers import UserManager
 
 from core.enums.regex_enum import RegEx
 from core.models import BaseModel
+from core.services.upload_avatar import upload_avatar
 
 
 class ProfileModel(BaseModel):
@@ -22,6 +23,7 @@ class ProfileModel(BaseModel):
         V.MinValueValidator(16),
         V.MaxValueValidator(150)
     ])
+    avatar = models.ImageField(upload_to=upload_avatar, blank=True)
 
 
 class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
