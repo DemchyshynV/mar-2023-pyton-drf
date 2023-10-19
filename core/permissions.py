@@ -12,3 +12,10 @@ class IsAdminOrWriteOnly(BasePermission):
         if request.method == 'POST':
             return True
         return bool(request.user.is_staff)
+
+
+class IsAdminWriteOrIsAuthenticatedRead(BasePermission):
+    def has_permission(self, request: Request, view):
+        if request.method == 'GET':
+            return bool(request.user)
+        return bool(request.user and request.user.is_staff)

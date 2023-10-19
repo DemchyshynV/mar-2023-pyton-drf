@@ -9,6 +9,7 @@ from apps.cars.managers import CarManager
 
 from core.enums.regex_enum import RegEx
 from core.models import BaseModel
+from core.services.photo_service import PhotoService
 
 
 class CarModel(BaseModel):
@@ -21,6 +22,7 @@ class CarModel(BaseModel):
     year = models.IntegerField(validators=[V.MinValueValidator(1990), V.MaxValueValidator(datetime.now().year)])
     body = models.CharField(max_length=9, choices=BodyTypeChoices.choices)
     auto_park = models.ForeignKey(AutoParkModel, on_delete=models.CASCADE, related_name='cars')
+    photo = models.ImageField(upload_to=PhotoService.upload_car_photo, blank=True)
 
     objects = models.Manager()
     my_objects = CarManager()
