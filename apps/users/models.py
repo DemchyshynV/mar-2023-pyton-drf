@@ -35,9 +35,9 @@ class UserModel(AbstractBaseUser, PermissionsMixin, BaseModel):
     password = models.CharField(max_length=128, validators=[
         V.RegexValidator(*RegEx.PASSWORD.value)
     ])
-    is_superuser = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
-    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     profile = models.OneToOneField(ProfileModel, on_delete=models.CASCADE, related_name='user', null=True)
 
     USERNAME_FIELD = 'email'

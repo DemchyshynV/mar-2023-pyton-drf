@@ -1,6 +1,6 @@
 from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.request import Request
 
 from apps.cars.filters import CarFilter
@@ -11,10 +11,11 @@ from core.permissions import IsAdminWriteOrIsAuthenticatedRead, IsSuperUser
 
 
 class CarListCreateView(ListAPIView):
-    queryset = CarModel.my_objects.cars_audi()
+    queryset = CarModel.my_objects.all()
     serializer_class = CarSerializer
     filterset_class = CarFilter
-    permission_classes = (IsAdminWriteOrIsAuthenticatedRead,)
+    # permission_classes = (IsAdminWriteOrIsAuthenticatedRead,)
+    permission_classes = (AllowAny,)
 
 
 class CarRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
