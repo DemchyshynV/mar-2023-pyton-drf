@@ -22,6 +22,11 @@ class ActivateToken(ActionToken):
     lifetime = ActionTokenEnum.ACTIVATE.life_time
 
 
+class RecoveryToken(ActionToken):
+    token_type = ActionTokenEnum.RECOVERY.token_type
+    lifetime = ActionTokenEnum.RECOVERY.life_time
+
+
 class JWTService:
     @staticmethod
     def create_token(user, token_class: ActionTokenClassType):
@@ -38,4 +43,3 @@ class JWTService:
         token_res.blacklist()
         user_id = token_res.payload.get('user_id')
         return get_object_or_404(UserModel, pk=user_id)
-
