@@ -1,3 +1,6 @@
+from core.dataclasses.user_dataclass import ProfileDataClass, UserDataClass
+from core.permissions import IsAdminOrWriteOnly, IsSuperUser
+
 from django.contrib.auth import get_user_model
 
 from rest_framework import status
@@ -6,9 +9,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from apps.users.serializers import ProfileAvatarSerializer, UserSerializer
-
-from core.dataclasses.user_dataclass import ProfileDataClass, UserDataClass
-from core.permissions import IsAdminOrWriteOnly, IsSuperUser
 
 UserModel = get_user_model()
 
@@ -86,6 +86,9 @@ class UserBlockView(GenericAPIView):
 class UserUnBlockView(GenericAPIView):
     queryset = UserModel.objects.all()
     permission_classes = (IsSuperUser,)
+
+    def get_serializer(self, *args, **kwargs):
+        pass
 
     def get_queryset(self):
         return super().get_queryset().exclude(pk=self.request.user.pk)
