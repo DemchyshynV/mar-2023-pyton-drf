@@ -1,3 +1,6 @@
+from core.services.email_service import EmailService
+from core.services.jwt_service import ActivateToken, JWTService, RecoveryToken, SocketToken
+
 from django.contrib.auth import get_user_model
 
 from rest_framework import status
@@ -8,9 +11,6 @@ from rest_framework.response import Response
 from apps.auth.serializers import EmailSerializer, PasswordSerializer
 from apps.users.models import UserModel as User
 from apps.users.serializers import UserSerializer
-
-from core.services.email_service import EmailService
-from core.services.jwt_service import ActivateToken, JWTService, RecoveryToken
 
 UserModel = get_user_model()
 
@@ -62,3 +62,11 @@ class RecoveryPasswordView(GenericAPIView):
         user.set_password(serializer.data['password'])
         user.save()
         return Response({'detail': 'password was changed'}, status.HTTP_200_OK)
+
+
+class SocketView(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, *args, **kwargs):
+        token = JWTService.create_token(self.request.user, SocketToken)
+        return Response({'token': str(token)}, status.HTTP_200_OK)
