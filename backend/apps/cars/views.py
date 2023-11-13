@@ -1,13 +1,11 @@
-from core.permissions import IsAdminWriteOrIsAuthenticatedRead, IsSuperUser
+from core.permissions import IsAdminWriteOrIsAuthenticatedRead
 from drf_yasg.utils import swagger_auto_schema
 
 from django.utils.decorators import method_decorator
 
-from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from rest_framework.parsers import MultiPartParser
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework.request import Request
+from rest_framework.permissions import AllowAny
 
 from apps.cars.filters import CarFilter
 from apps.cars.models import CarModel
@@ -15,7 +13,7 @@ from apps.cars.serializers import CarPhotoSerializer, CarSerializer
 
 
 @method_decorator(name='get', decorator=swagger_auto_schema(security=[]))
-class CarListCreateView(ListAPIView):
+class CarListCreateView(ListCreateAPIView):
     """
         Get all cars
     """

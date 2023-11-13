@@ -18,8 +18,6 @@ services:
     image: mysql:8
     volumes:
       - ./mysql:/var/lib/mysql
-    ports:
-      - "5555:3306"
     env_file:
       - .env
     restart: on-failure
