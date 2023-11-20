@@ -4,7 +4,7 @@ MAINTAINER Some Dev
 
 ENV PYTHONUNBUFFERED=1
 
-RUN apk add --no-cache gcc musl-dev mariadb-dev # for postgres libpq-dev
+RUN apk add --no-cache gcc musl-dev mariadb-dev gettext # for postgres libpq-dev
 # for pillow
 RUN apk add --no-cache jpeg-dev zlib-dev libjpeg
 

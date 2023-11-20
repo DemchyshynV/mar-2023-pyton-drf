@@ -1,5 +1,7 @@
 from enum import Enum
 
+from django.utils.translation import gettext_lazy as _
+
 
 class RegEx(Enum):
     BRAND = (
@@ -14,9 +16,9 @@ class RegEx(Enum):
     NAME = (
         r'^[А-ЯЁІЇЄҐ][а-яіїєґё]{1,49}$',
         [
-            'Only cyrillic',
-            'First letter uppercase',
-            'min 2 max 50 characters'
+            _('Only cyrillic'),
+            _('First letter uppercase'),
+            _('min 2 max 50 characters')
         ]
     )
 
